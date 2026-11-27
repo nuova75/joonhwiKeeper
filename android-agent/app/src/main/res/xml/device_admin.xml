@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Device Owner 는 DevicePolicyManager 의 대부분 API 를 정책 선언 없이 쓸 수 있지만,
+     레거시 Device Admin 정책도 함께 선언해 둔다. -->
+<device-admin>
+    <uses-policies>
+        <force-lock />
+        <watch-login />
+        <disable-camera />
+    </uses-policies>
+</device-admin>

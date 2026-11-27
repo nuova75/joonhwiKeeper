@@ -1,0 +1,35 @@
+# Node / backend
+node_modules/
+backend/dist/
+backend/data/
+.env
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Android
+android-agent/.gradle/
+android-agent/build/
+android-agent/app/build/
+android-agent/local.properties
+android-agent/.idea/
+android-agent/app/google-services.json
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# .NET
+windows-agent/**/bin/
+windows-agent/**/obj/
+windows-agent/publish/
+*.user
+.vs/
+
+# FCM / secrets
+**/firebase-service-account*.json
+
+# OS
+.DS_Store
+Thumbs.db

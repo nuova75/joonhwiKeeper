@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1f6f5c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="xKeep" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/icon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+  <title>xKeep 부모</title>
+</head>
+<body>
+  <header>
+    <h1>xKeep</h1>
+    <button id="btn-push" class="ghost" hidden>알림 켜기</button>
+  </header>
+
+  <main>
+    <!-- 로그인 / 최초 설정 -->
+    <section id="view-auth" hidden>
+      <h2 id="auth-title">로그인</h2>
+      <p id="auth-hint" class="muted"></p>
+      <form id="form-auth">
+        <input id="auth-password" type="password" autocomplete="current-password" placeholder="가족 비밀번호 (8자 이상)" required minlength="8" />
+        <button type="submit">확인</button>
+      </form>
+      <p id="auth-error" class="error"></p>
+    </section>
+
+    <!-- 기기 목록 -->
+    <section id="view-devices" hidden>
+      <div id="requests" class="card requests" hidden>
+        <strong>허용 요청</strong>
+        <ul id="request-list"></ul>
+      </div>
+      <div id="devices"></div>
+      <details class="card">
+        <summary>+ 자녀 기기 추가</summary>
+        <form id="form-pair" class="row">
+          <input id="pair-name" placeholder="기기 이름 (예: 첫째 폰)" required maxlength="64" />
+          <select id="pair-platform">
+            <option value="android">Android</option>
+            <option value="windows">Windows</option>
+          </select>
+          <button type="submit">코드 발급</button>
+        </form>
+        <p id="pair-result"></p>
+      </details>
+    </section>
+  </main>
+
+  <!-- 정책 편집 -->
+  <dialog id="dlg-policy">
+    <form id="form-policy" method="dialog">
+      <h3 id="policy-title">설정</h3>
+      <label>하루 허용 시간 (분, 비우면 무제한)
+        <input id="p-limit" type="number" min="0" max="1440" />
+      </label>
+      <label class="row"><input id="p-bed-on" type="checkbox" /> 취침 시간</label>
+      <div class="row">
+        <input id="p-bed-start" type="time" value="22:00" /> ~ <input id="p-bed-end" type="time" value="07:00" />
+      </div>
+      <fieldset class="study">
+        <legend>📚 학습 모드 — 이 시간엔 아래 앱·사이트만 열립니다</legend>
+        <label>학습 시간표</label>
+        <div id="p-schedule"></div>
+        <button type="button" id="p-schedule-add" class="ghost small">+ 시간 추가</button>
+        <label>허용 사이트 (한 줄에 하나, 하위 도메인 포함)
+          <textarea id="p-study-sites" rows="5" placeholder="ebsi.co.kr&#10;band.us"></textarea>
+        </label>
+        <label>허용 앱 (한 줄에 하나: Android 패키지명 / Windows exe)
+          <textarea id="p-study-apps" rows="4" placeholder="com.android.chrome&#10;chrome.exe"></textarea>
+        </label>
+        <details id="p-apps-pick">
+          <summary>기기에서 보고한 앱 목록에서 고르기</summary>
+          <div id="p-apps-list" class="chips"></div>
+        </details>
+        <p class="muted">사이트 제한은 Chrome(Windows는 Edge 포함)에 적용됩니다. 다른 브라우저는 허용 앱에 넣지 마세요. 학습 시간은 하루 허용 시간을 쓰지 않습니다.</p>
+      </fieldset>
+      <label>차단 앱 (자유 시간에도 항상 차단, 한 줄에 하나)
+        <textarea id="p-blocked" rows="5" placeholder="com.example.game&#10;roblox.exe"></textarea>
+      </label>
+      <label>잠금 중 허용 앱 (Android, 한 줄에 하나)
+        <textarea id="p-allowed" rows="3" placeholder="com.kakao.talk"></textarea>
+      </label>
+      <div class="row end">
+        <button value="cancel" class="ghost">취소</button>
+        <button id="btn-save-policy" value="save">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 이벤트 -->
+  <dialog id="dlg-events">
+    <h3>최근 기록</h3>
+    <ul id="events"></ul>
+    <form method="dialog" class="row end"><button>닫기</button></form>
+  </dialog>
+
+  <template id="tpl-block">
+    <div class="block">
+      <div class="row between">
+        <div class="days"></div>
+        <button type="button" class="ghost small b-del">삭제</button>
+      </div>
+      <div class="row times">
+        <input type="time" class="b-start" value="19:00" /> ~ <input type="time" class="b-end" value="21:00" />
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-device">
+    <article class="card device">
+      <div class="row between">
+        <div>
+          <strong class="d-name"></strong>
+          <span class="d-platform muted"></span>
+          <span class="d-mode badge"></span>
+        </div>
+        <span class="d-online badge"></span>
+      </div>
+      <div class="meter"><div class="meter-fill"></div></div>
+      <p class="d-usage"></p>
+      <p class="d-lock"></p>
+      <div class="actions">
+        <button class="a-study"></button>
+        <button class="a-lock"></button>
+        <button class="a-extra ghost">+30분</button>
+        <button class="a-policy ghost">설정</button>
+        <button class="a-events ghost">기록</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

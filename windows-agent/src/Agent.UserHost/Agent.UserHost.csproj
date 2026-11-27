@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    사용자 세션에서 실행되는 트레이 앱 (서비스가 CreateProcessAsUser 로 실행).
+    역할: 남은 시간 표시, 차단 알림, 전체 화면 잠금 창 + LockWorkStation.
+    자녀가 강제 종료해도 서비스가 다시 실행하고, 실제 집행(세션 끊기)은 서비스가 한다.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>XKeep.Agent.UserHost</RootNamespace>
+    <AssemblyName>XKeep.Agent.UserHost</AssemblyName>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Agent.Shared\Agent.Shared.csproj" />
+  </ItemGroup>
+</Project>

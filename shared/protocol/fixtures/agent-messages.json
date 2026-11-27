@@ -1,0 +1,60 @@
+[
+  {
+    "type": "hello",
+    "agentVersion": "0.1.0",
+    "policyVersion": 6
+  },
+  {
+    "type": "usage",
+    "date": "2026-11-25",
+    "usedMinutes": 95,
+    "perApp": {
+      "com.example.game": 60,
+      "com.google.android.youtube": 35
+    },
+    "locked": false,
+    "lockReason": null,
+    "studyMinutes": 40,
+    "mode": "study"
+  },
+  {
+    "type": "processes",
+    "names": [
+      "chrome.exe",
+      "explorer.exe"
+    ]
+  },
+  {
+    "type": "event",
+    "kind": "process_killed",
+    "detail": "roblox.exe",
+    "at": "2026-11-25T19:03:00+09:00"
+  },
+  {
+    "type": "apps",
+    "apps": [
+      {
+        "id": "com.nhn.android.band",
+        "label": "밴드"
+      },
+      {
+        "id": "discord.exe",
+        "label": "Discord"
+      }
+    ]
+  },
+  {
+    "type": "access_request",
+    "kind": "site",
+    "value": "https://www.youtube.com/watch?v=abc",
+    "note": "EBS 강의 영상이 유튜브로 연결돼요"
+  },
+  {
+    "type": "study_start",
+    "minutes": 60
+  },
+  {
+    "type": "goodbye",
+    "reason": "shutdown"
+  }
+]

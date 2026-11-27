@@ -1,0 +1,24 @@
+# 라즈베리 파이 systemd 유닛
+# 설치: sudo cp deploy/xkeep.service /etc/systemd/system/ && sudo systemctl enable --now xkeep
+[Unit]
+Description=xKeep relay server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=xkeep
+WorkingDirectory=/opt/xkeep/backend
+ExecStart=/usr/bin/node --env-file-if-exists=.env dist/index.js
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+# 보안 강화
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/xkeep/backend/data
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

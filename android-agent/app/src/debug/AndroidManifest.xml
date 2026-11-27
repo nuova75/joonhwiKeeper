@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 디버그 빌드 전용: testOnly 앱만 `adb shell dpm remove-active-admin` 으로 Device Owner 해제가 가능하다.
+     (설치 시 `adb install -t` 필요) 개발 중 공장 초기화 없이 반복 테스트하기 위한 설정. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:testOnly="true" />
+</manifest>

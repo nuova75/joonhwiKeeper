@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- 플랫폼 독립: 정책 모델·판정 로직·IPC 메시지. Mac/Linux 에서도 단위 테스트 가능 -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>XKeep.Agent.Shared</RootNamespace>
+  </PropertyGroup>
+</Project>
